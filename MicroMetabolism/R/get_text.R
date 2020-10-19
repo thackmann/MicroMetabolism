@@ -12,6 +12,8 @@
 read_html_pages = function(directory_fp, url_list, destfile_names_Bergey){
 	setwd(directory_fp)
 	
+	html_list=vector(mode = "list", length = length(url_list))
+
 	for(i in 1:length(url_list))
 	{
 		html_filepath=file.path=(destfile_names_Bergey[[i]])
