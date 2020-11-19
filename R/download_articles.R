@@ -4,8 +4,9 @@
 #'
 #' @return A character vector of url names for articles
 #' @importFrom xml2 read_html
-#' @importFrom rvest html_nodes html_text
+#' @importFrom rvest html_nodes html_text html_attr
 #' @importFrom svMisc progress
+#' @importFrom stringr word
 #' @export
 
 get_url_names = function(){
