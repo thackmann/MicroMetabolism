@@ -4,7 +4,7 @@
 #'
 #' @return A character vector of url names for articles
 #' @importFrom xml2 read_html
-#' @importFrom rvest html_nodes html_text
+#' @importFrom rvest html_nodes html_text html_attr
 #' @importFrom svMisc progress
 #' @importFrom stringr word
 #' @export
@@ -43,7 +43,7 @@ get_url_names = function(){
 	return(url_list)
 }
 
-#' Filter Url Names For Articles 
+#' Filter Url Names For Articles
 #'
 #' This function keeps url name only if article is for a genus (not phylum, class, order, or family)
 #'
@@ -52,9 +52,9 @@ get_url_names = function(){
 #' @export
 filter_url_names = function(url_list){
 	#url names for articles to keep contain "gbm"
-	match_vec=which(grepl("gbm",url_list)) 
+	match_vec=which(grepl("gbm",url_list))
 	url_list=url_list[match_vec]
-	
+
 	return(url_list)
 }
 
@@ -71,9 +71,9 @@ set_html_names = function(url_list){
 	{
 		matches_url = gregexpr("gbm.*", url_list[i])
 		destfile_names_Bergey[[i]] = unlist(regmatches(url_list[i], matches_url))
-		destfile_names_Bergey[[i]] = paste(destfile_names_Bergey[[i]], ".html", sep="")	
+		destfile_names_Bergey[[i]] = paste(destfile_names_Bergey[[i]], ".html", sep="")
 	}
-	
+
 		return(destfile_names_Bergey)
 }
 

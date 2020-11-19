@@ -13,7 +13,7 @@ read_html_pages = function(directory_fp, url_list, destfile_names_Bergey){
 	setwd(directory_fp)
 	
 	html_list=vector(mode = "list", length = length(url_list))
-
+	
 	for(i in 1:length(url_list))
 	{
 		html_filepath=file.path=(destfile_names_Bergey[[i]])
@@ -152,10 +152,10 @@ get_taxonomy = function(directory_fp, url_list, destfile_names_Bergey, html_list
 			taxonomy[i,j] = name_text
 		}
 
-		#Replace or remove non-ASCII characters (interferes in extracting organism names in later functions)
-		taxonomy[i,]=sub("\u2013", "-", taxonomy[i,])
-		taxonomy[i,]=sub("\u2010", "-", taxonomy[i,])
-		taxonomy[i,]= iconv(taxonomy[i,], to = "ASCII", sub="")
+		#Convert to ASCII formatting (removes non-ASCII characters that interfere in downstream extraction of organism names)
+		#Converting from UTF-8 to latin1 to ASCII (in that order) results in fewest characters being removed
+			taxonomy[i,j] = iconv(taxonomy[i,j], from="UTF-8", to="latin1", "")
+			taxonomy[i,j] = iconv(taxonomy[i,j], from="latin1", to="ASCII", "")
 	
 		#Show progress of loop
 			progress(value=i, max.value=length(url_list))
@@ -312,10 +312,10 @@ get_species_text = function(url_list, text_full, text_tables){
 			text_species[[i]] = sub("\r\n[ ]+Reference[s]*\r\n.*","", text_species[[i]])
 			text_species[[i]] = sub("\r\n[ ]+Further [rR]eading\r\n.*","", text_species[[i]])	
 
-		#Replace or remove non-ASCII characters (interferes with extracting organism names and strain IDs in later functions)
-			text_species[[i]]=sub("\u2013", "-", text_species[[i]])
-			text_species[[i]]=sub("\u2010", "-", text_species[[i]])
-			text_species[[i]]=iconv(text_species[[i]], to = "ASCII", sub="")
+		#Convert to ASCII formatting (removes non-ASCII characters that interfere in downstream extraction of organism names)
+		#Converting from UTF-8 to latin1 to ASCII (in that order) results in fewest characters being removed
+			text_species[[i]]=iconv(text_species[[i]], from="UTF-8", to="latin1", "")
+			text_species[[i]] = iconv(text_species[[i]], from="latin1", to="ASCII", "")
 
 		#Show progress of loop
 			progress(value=i, max.value=length(url_list))

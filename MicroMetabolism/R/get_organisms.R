@@ -16,7 +16,7 @@ get_organism_names = function(url_list, taxonomy, text_species){
 			#Set pattern for finding names
 				#Species names
 					#The pattern is 1) "\r\n" with one or more spaces, 2) the genus name, 3) species name in one or more lowercase letters, and 4) "\r\n"
-					#Certain other characters (.-*) are allowed in certain positions
+					#Certain other characters (".*) are allowed in certain positions
 						#Set genus name
 						genus_name = taxonomy[i,5]
 						genus_name = paste("(Candidatus )*", genus_name, sep="") #Give option for "Candidatus " to appear in genus name
@@ -27,42 +27,42 @@ get_organism_names = function(url_list, taxonomy, text_species){
 						genus_name = sub("\u0080\u009d\u0080", "", genus_name, fixed = TRUE) #Remove right quotation mark
 						genus_name = sub("Candidatus", "Ca[.]*(ndidatus)*[ ]*", genus_name) #Give option to abbreviate "Candidatus" as "Ca." and for a space to be present between Candidatus and genus name
 			
-					pattern_species_names = paste("\r\n[ ]+", genus_name, " [abcdefghijklmnopqrstuvwxyz.*]+\r\n", sep="")
+					pattern_species_names = paste("\r\n[ ]+[\"]*", genus_name, " [abcdefghijklmnopqrstuvwxyz.\"*]+\r\n", sep="")
 
 				#Subspecies names v. 1
 					#The pattern is 1) "\r\n" with one or more spaces, 2) the genus name, 3) species name in one or more lowercase letters, 4) "\r\n            \r\n            ", 5) "subsp[.] ", and 6) subspecies name in one or more lowercase letters
-					#Certain other characters (.-*) are allowed in certain positions
-					pattern_subspecies_names_v1 = paste("\r\n[ ]+", genus_name, " [abcdefghijklmnopqrstuvwxyz.*]+\r\n[ ]+\r\n[ ]+subsp. [abcdefghijklmnopqrstuvwxyz.*]*", sep="")
+					#Certain other characters (".*) are allowed in certain positions
+					pattern_subspecies_names_v1 = paste("\r\n[ ]+[\"]*", genus_name, " [abcdefghijklmnopqrstuvwxyz.\"*]+\r\n[ ]+\r\n[ ]+subsp. [abcdefghijklmnopqrstuvwxyz.\"*]*", sep="")
 
 				#Subspecies names v. 2
 					#The pattern is 1) "\r\n" with one or more spaces, 2) the genus name, 3) species name in one or more lowercase letters, 4) "\r\n            \r\n            ", 5) "subsp ", and 6) subspecies name in one or more lowercase letters
-					#Certain other characters (.-*) are allowed in certain positions
-					pattern_subspecies_names_v2 = paste("\r\n[ ]+", genus_name, " [abcdefghijklmnopqrstuvwxyz.*]+ subsp\r\n[ ]+\r\n[ ]+[abcdefghijklmnopqrstuvwxyz.*]*", sep="")
+					#Certain other characters (".*) are allowed in certain positions
+					pattern_subspecies_names_v2 = paste("\r\n[ ]+[\"]*", genus_name, " [abcdefghijklmnopqrstuvwxyz.\"*]+ subsp\r\n[ ]+\r\n[ ]+[abcdefghijklmnopqrstuvwxyz.\"*]*", sep="")
 				
 				#Subspecies names v. 3
 					#The pattern is 1) "\r\n" with one or more spaces, 2) the genus name, 3) species name in one or more lowercase letters, 4) "\r\n            \r\n            ", 5) "subsp[.] ", and 6) subspecies name in one or more lowercase letters
-					#Certain other characters (.-*) are allowed in certain positions
-					pattern_subspecies_names_v3 = paste("\r\n[ ]+", genus_name, " [abcdefghijklmnopqrstuvwxyz.*]+ subsp. [abcdefghijklmnopqrstuvwxyz.*]+\r\n[ ]+\r\n[ ]+", sep="")
+					#Certain other characters (".*) are allowed in certain positions
+					pattern_subspecies_names_v3 = paste("\r\n[ ]+[\"]*", genus_name, " [abcdefghijklmnopqrstuvwxyz.\"*]+ subsp. [abcdefghijklmnopqrstuvwxyz.\"*]+\r\n[ ]+\r\n[ ]+", sep="")
 
 				#Subspecies names v. 4
 					#The pattern is 1) "\r\n" with one or more spaces, 2) the genus name, 3) species name in one or more lowercase letters, 4) "\r\n            \r\n            ", 5) "subsp[.] ", and 6) subspecies name in one or more lowercase letters
-					#Certain other characters (.-*) are allowed in certain positions
-					pattern_subspecies_names_v4 = paste("\r\n[ ]+", genus_name, " [abcdefghijklmnopqrstuvwxyz.*]+ subsp. [abcdefghijklmnopqrstuvwxyz.*]+ subsp. nov.[ ]*[abcdefghijklmnopqrstuvwxyz.*]*\r\n[ ]+\r\n[ ]+", sep="")
+					#Certain other characters (".*) are allowed in certain positions
+					pattern_subspecies_names_v4 = paste("\r\n[ ]+[\"]*", genus_name, " [abcdefghijklmnopqrstuvwxyz.\"*]+ subsp. [abcdefghijklmnopqrstuvwxyz.\"*]+ subsp. nov.[ ]*[abcdefghijklmnopqrstuvwxyz.*]*\r\n[ ]+\r\n[ ]+", sep="")
 
 				#Pathovar names
 					#The pattern is 1) "\r\n" with one or more spaces, 2) the genus name, 3) species name in one or more lowercase letters, 4) "\r\n            \r\n            ", 5) "pathovar ", and 6) subspecies name in one or more lowercase letters
-					#Certain other characters (.-*) are allowed in certain positions
-					pattern_pathovar_names = paste("\r\n[ ]+", genus_name, " [abcdefghijklmnopqrstuvwxyz.*]+\r\n[ ]+\r\n[ ]+pathovar [abcdefghijklmnopqrstuvwxyz.*]*", sep="")
+					#Certain other characters (".*) are allowed in certain positions
+					pattern_pathovar_names = paste("\r\n[ ]+[\"]*", genus_name, " [abcdefghijklmnopqrstuvwxyz.\"*]+\r\n[ ]+\r\n[ ]+pathovar [abcdefghijklmnopqrstuvwxyz.\"*]*", sep="")
 
 				#Biovar names
 					#The pattern is 1) "\r\n" with one or more spaces, 2) the genus name, 3) species name in one or more lowercase letters, 4) "\r\n            \r\n            ", 5) "biovar ", and 6) subspecies name in one or more lowercase letters
-					#Certain other characters (.-*) are allowed in certain positions
-					pattern_biovar_names = paste("\r\n[ ]+", genus_name, " [abcdefghijklmnopqrstuvwxyz.*]+\r\n[ ]+\r\n[ ]+biovar [abcdefghijklmnopqrstuvwxyz.*]*", sep="")
+					#Certain other characters (".*) are allowed in certain positions
+					pattern_biovar_names = paste("\r\n[ ]+[\"]*", genus_name, " [abcdefghijklmnopqrstuvwxyz.\"*]+\r\n[ ]+\r\n[ ]+biovar [abcdefghijklmnopqrstuvwxyz.\"*]*", sep="")
 
 				#Genomospecies number
 					#The pattern is 1) "\r\n" with one or more spaces, 2) the genus name, 3) "genomospecies", 4) a number
-					#Certain other characters (.-*) are allowed in certain positions
-					pattern_genomospecies_names = paste("\r\n[ ]+", genus_name, " genomospecies ", "[1234567890]*", sep="")
+					#Certain other characters (".*) are allowed in certain positions
+					pattern_genomospecies_names = paste("\r\n[ ]+[\"]*", genus_name, " genomospecies ", "[1234567890]*", sep="")
 
 				#Pattern for names
 					#Combines pattern for subspecies and species
@@ -209,8 +209,8 @@ get_species_names = function(url_list, taxonomy, names){
 			#Remove "\r\n" and spaces
 			species_names[[i]][j] = gsub("\r\n[ ]*", "", species_names[[i]][j])
 
-			#Remove 
-			species_names[[i]][j] = gsub("", "", species_names[[i]][j])
+			#Remove "\"
+			species_names[[i]][j] = gsub("\"", "", species_names[[i]][j])
 
 			#Remove "*"
 			species_names[[i]][j] = gsub("\\*", "", species_names[[i]][j])
@@ -324,8 +324,8 @@ subspecies_names = rep(list(list()), length(url_list))
 								#Remove "\r\n" and spaces
 								subspecies_names[[i]][j] = gsub("\r\n[ ]*", "", subspecies_names[[i]][j])
 
-								#Remove 
-								subspecies_names[[i]][j] = gsub("", "", subspecies_names[[i]][j])
+								#Remove "\"
+								subspecies_names[[i]][j] = gsub("\"", "", subspecies_names[[i]][j])
 
 								#Remove "*"
 								subspecies_names[[i]][j] = gsub("\\*", "", subspecies_names[[i]][j])
