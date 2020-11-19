@@ -48,10 +48,16 @@ get_full_text = function(directory_fp, url_list, destfile_names_Bergey, html_lis
 		text_full_xml = html_nodes(html_list[[i]], ".article-row-left")
 		text_full[[i]] = html_text(text_full_xml)
 
+		#If article failed to download, text_full will equal character(0); replace this with empty string to prevent downstream errors
+		if(identical(text_full, character(0)))
+		{
+			text_full=""
+		}
+
 		#Show progress of loop
 			progress(value=i, max.value=length(url_list))
 	}
-		
+	
 	  return(text_full)
 }
 
