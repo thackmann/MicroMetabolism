@@ -11,16 +11,18 @@
 #' @export
 read_html_pages = function(directory_fp, url_list, destfile_names_Bergey){
 	setwd(directory_fp)
-	
+
+	html_list=vector(mode = "list", length = length(url_list))
+
 	for(i in 1:length(url_list))
 	{
 		html_filepath=file.path=(destfile_names_Bergey[[i]])
 		html_list[[i]] = read_html(html_filepath)
-	
+
 		#Show progress of loop
 			progress(value=i, max.value=length(url_list))
 	}
-	
+
   return(html_list)
 }
 
@@ -37,31 +39,27 @@ read_html_pages = function(directory_fp, url_list, destfile_names_Bergey){
 #' @importFrom svMisc progress
 #' @export
 get_full_text = function(directory_fp, url_list, destfile_names_Bergey, html_list=html_list){
-	setwd(directory_fp)
-	
-	text_full = rep(list(list()), length(url_list))
-	
-	for(i in 1:length(url_list))
-	{
-		html_filepath = file.path=(destfile_names_Bergey[[i]])
-	
-		text_full_xml = html_nodes(html_list[[i]], ".article-row-left")
-		text_full[[i]] = html_text(text_full_xml)
+  setwd(directory_fp)
 
-		#If articles failed to download, text_full will equal character(0); replace this with empty string to prevent downstream errors
-		if(identical(text_full[[i]], character(0)))
-		{
-			text_full[[i]]=""
-		}
+  text_full = rep(list(list()), length(url_list))
 
-		#Show progress of loop
-			progress(value=i, max.value=length(url_list))
-	}
-	
-	  return(text_full)
+  for(i in 1:length(url_list))
+  {
+    html_filepath = file.path=(destfile_names_Bergey[[i]])
+
+    text_full_xml = html_nodes(html_list[[i]], ".article-row-left")
+    text_full[[i]] = html_text(text_full_xml)
+    if(identical(text_full[[i]], character(0))){text_full[[i]]=""}
+
+    #Show progress of loop
+    progress(value=i, max.value=length(url_list))
+  }
+
+  return(text_full)
 }
 
-#' Get Tables 
+
+#' Get Tables
 #'
 #' This function gets text of tables from the downloaded articles
 #'
@@ -75,20 +73,20 @@ get_full_text = function(directory_fp, url_list, destfile_names_Bergey, html_lis
 #' @export
 get_tables = function(directory_fp, url_list, destfile_names_Bergey, html_list){
 	setwd(directory_fp)
-	
+
 	text_tables = rep(list(list()), length(url_list))
-	
+
 	for(i in 1:length(url_list))
 	{
 		html_filepath = file.path=(destfile_names_Bergey[[i]])
 
 		text_tables_xml = html_nodes(html_list[[i]], ".article-table-content")
 		text_tables[[i]] = html_text(text_tables_xml)
-	
+
 		#Show progress of loop
-			progress(value=i, max.value=length(url_list))	
+			progress(value=i, max.value=length(url_list))
 	}
-	
+
   return(text_tables)
 }
 
@@ -106,13 +104,13 @@ get_tables = function(directory_fp, url_list, destfile_names_Bergey, html_list){
 #' @export
 get_abstract = function(directory_fp, url_list, destfile_names_Bergey, html_list){
 	setwd(directory_fp)
-	
+
 	text_abstract = rep(list(list()), length(url_list))
-	
+
 	for(i in 1:length(url_list))
 	{
 		html_filepath = file.path=(destfile_names_Bergey[[i]])
-	
+
 		text_abstract_xml = html_nodes(html_list[[i]], xpath='//*[@id="section-1-en"]')
 
 		text_abstract[[i]] = html_text(text_abstract_xml)
@@ -120,7 +118,7 @@ get_abstract = function(directory_fp, url_list, destfile_names_Bergey, html_list
 		#Show progress of loop
 			progress(value=i, max.value=length(url_list))
 	}
-	
+
   return(text_abstract)
 }
 
@@ -137,36 +135,37 @@ get_abstract = function(directory_fp, url_list, destfile_names_Bergey, html_list
 #' @importFrom svMisc progress
 #' @export
 get_taxonomy = function(directory_fp, url_list, destfile_names_Bergey, html_list){
-	setwd(directory_fp)
-	
-	header_taxonomy = c("Phylum", "Class", "Order", "Family", "Genus")
-	selector_taxonomy = c(".partTile", ".supPartTile", ".subSubpartTile", ".subSubSubpartTile", ".citation__title")
-	taxonomy = data.frame(array(0,dim=c(length(url_list),length(header_taxonomy))))
-	colnames(taxonomy) = c(header_taxonomy)	
+  setwd(directory_fp)
 
-	for(i in 1:length(url_list))
-	{
-		html_filepath = file.path=(destfile_names_Bergey[[i]])
-		for(j in 1:length(header_taxonomy))
-		{
-			name_xml = html_nodes(html_list[[i]], selector_taxonomy[j])
-			name_text = html_text(name_xml)
-			if(identical(name_text, character(0))){name_text=NA}
-			name_text = trimws(name_text)
-			taxonomy[i,j] = name_text
-		}
+  header_taxonomy = c("Phylum", "Class", "Order", "Family", "Genus")
+  selector_taxonomy = c(".partTile", ".supPartTile", ".subSubpartTile", ".subSubSubpartTile", ".citation__title")
+  taxonomy = data.frame(array(0,dim=c(length(url_list),length(header_taxonomy))))
+  colnames(taxonomy) = c(header_taxonomy)
 
-		#Convert to ASCII formatting (removes non-ASCII characters that interfere in downstream extraction of organism names)
-		#Converting from UTF-8 to latin1 to ASCII (in that order) results in fewest characters being removed
-			taxonomy[i,j] = iconv(taxonomy[i,j], from="UTF-8", to="latin1", "")
-			taxonomy[i,j] = iconv(taxonomy[i,j], from="latin1", to="ASCII", "")
-	
-		#Show progress of loop
-			progress(value=i, max.value=length(url_list))
-	}
-	
+  for(i in 1:length(url_list))
+  {
+    html_filepath = file.path=(destfile_names_Bergey[[i]])
+    for(j in 1:length(header_taxonomy))
+    {
+      name_xml = html_nodes(html_list[[i]], selector_taxonomy[j])
+      name_text = html_text(name_xml)
+      if(identical(name_text, character(0))){name_text="NA"}
+      name_text = trimws(name_text)
+      taxonomy[i,j] = name_text
+    }
+
+    #Convert to ASCII formatting (removes non-ASCII characters that interfere in downstream extraction of organism names)
+    #Converting from UTF-8 to latin1 to ASCII (in that order) results in fewest characters being removed
+    taxonomy[i,j] = iconv(taxonomy[i,j], from="UTF-8", to="latin1", "")
+    taxonomy[i,j] = iconv(taxonomy[i,j], from="latin1", to="ASCII", "")
+
+    #Show progress of loop
+    progress(value=i, max.value=length(url_list))
+  }
+
   return(taxonomy)
 }
+
 
 #' Get Main Text
 #'
@@ -180,7 +179,7 @@ get_taxonomy = function(directory_fp, url_list, destfile_names_Bergey, html_list
 get_main_text = function(url_list, text_full){
 	text_main = rep(list(list()), length(url_list))
 	for(i in 1:length(url_list))
-	{	
+	{
 		text_main[[i]] = text_full[[i]]
 
 		#Remove text before abstract
@@ -190,7 +189,7 @@ get_main_text = function(url_list, text_full){
 		text_main[[i]] = sub("\r\n[ ]+End [nN]ote[s]*\r\n.*","", text_main[[i]])
 		text_main[[i]] = sub("\r\n[ ]+Acknowledgment[s]*\r\n.*","", text_main[[i]])
 		text_main[[i]] = sub("\r\n[ ]+Reference[s]*\r\n.*","", text_main[[i]])
-		text_main[[i]] = sub("\r\n[ ]+Further [rR]eading\r\n.*","", text_main[[i]])	
+		text_main[[i]] = sub("\r\n[ ]+Further [rR]eading\r\n.*","", text_main[[i]])
 
 		#Get text for genus Bacillus
 		#Format of article different from others
@@ -205,7 +204,7 @@ get_main_text = function(url_list, text_full){
 		#Show progress of loop
 			progress(value=i, max.value=length(url_list))
 	}
-	
+
   return(text_main)
 }
 
@@ -221,49 +220,49 @@ get_main_text = function(url_list, text_full){
 #' @export
 get_genus_text = function(url_list, text_full, text_tables){
 	text_genus = rep(list(list()), length(url_list))
-	
+
 	for(i in 1:length(url_list))
-	{	
+	{
 		text_genus[[i]] = text_full[[i]]
-			
+
 
 
 		#Remove text before abstract
 			text_genus[[i]] = sub(".*\r\n[ ]*Abstract\r\n[ ]*","Abstract\r\n[ ].*", text_genus[[i]])
-		
+
 		#Remove tables
 			#Run loop only if there are tables
 			if(length(text_tables[[i]])>0)
 			{
 				for(k in 1:length(text_tables[[i]]))
 				{
-					#Replace text from tables with nothing 
+					#Replace text from tables with nothing
 					text_genus[[i]] = gsub(text_tables[[i]][k], "", text_genus[[i]], fixed = TRUE)
 				}
-			}	
+			}
 
 		#Remove text after "List of [the][tenative] species of the genus . . . "
 			text_genus[[i]] = sub("List of (the )*(tentative )*species of the genus[ ]*.*", "", text_genus[[i]])
-			
+
 			#Some articles are worded differently, and following applies instead
-				text_genus[[i]] = sub("List of (the )*(tentative )*species in the genus[ ]*.*", "", text_genus[[i]])	
-				text_genus[[i]] = sub("Characteristics of the species of the genus[ ]*.*", "", text_genus[[i]])		
+				text_genus[[i]] = sub("List of (the )*(tentative )*species in the genus[ ]*.*", "", text_genus[[i]])
+				text_genus[[i]] = sub("Characteristics of the species of the genus[ ]*.*", "", text_genus[[i]])
 				text_genus[[i]] = gsub("Differentiation of the species of the genus[ ]*.*", "", text_genus[[i]])
 
 		#Remove text after references, acknowledgements, end notes, and further reading
 			text_genus[[i]] = sub("\r\n[ ]+End [nN]ote[s]*\r\n.*","", text_genus[[i]])
 			text_genus[[i]] = sub("\r\n[ ]+Acknowledgment[s]*\r\n.*","", text_genus[[i]])
 			text_genus[[i]] = sub("\r\n[ ]+Reference[s]*\r\n.*","", text_genus[[i]])
-			text_genus[[i]] = sub("\r\n[ ]+Further [rR]eading\r\n.*","", text_genus[[i]])	
-	
+			text_genus[[i]] = sub("\r\n[ ]+Further [rR]eading\r\n.*","", text_genus[[i]])
+
 		#Show progress of loop
 			progress(value=i, max.value=length(url_list))
 
 	}
-		
+
   return(text_genus)
 }
-	
+
 #' Get Species Text
 #'
 #' This function gets text under "List of the species of the genus" or similar section
@@ -282,25 +281,25 @@ get_species_text = function(url_list, text_full, text_tables){
 
 		#Remove text before abstract
 			text_species[[i]] = sub(".*\r\n[ ]*Abstract\r\n[ ]*","Abstract\r\n[ ].*", text_species[[i]])
-		
-		#Remove tables 
+
+		#Remove tables
 			#Tables include species names, which makes it hard to extract the names from the full text
 			#Run loop only if there are tables
 			if(length(text_tables[[i]])>0)
 			{
 				for(k in 1:length(text_tables[[i]]))
 				{
-					#Replace text from tables with nothing 
+					#Replace text from tables with nothing
 					text_species[[i]] = gsub(text_tables[[i]][k], "", text_species[[i]], fixed = TRUE)
 				}
-			}		
-				
+			}
+
 
 		#Remove text before "List of [the][tenative] species of the genus . . . "
 			text_species[[i]] = sub(".*List of (the )*(tentative )*species of the genus[ ]*", "List of species of the genus ", text_species[[i]])
-		
+
 			#Some articles are worded differently, and following applies instead
-				text_species[[i]] = sub(".*List of species in the genus[ ]*", "List of species of the genus ", text_species[[i]])	
+				text_species[[i]] = sub(".*List of species in the genus[ ]*", "List of species of the genus ", text_species[[i]])
 				text_species[[i]] = sub(".*Characteristics of the species of the genus[ ]*", "List of species of the genus ", text_species[[i]])
 				if(url_list[[i]] != "https://onlinelibrary.wiley.com/doi/full/10.1002/9781118960608.gbm00567") #Prevents erroneous removal of text from article for Macrococcus
 				{
@@ -308,13 +307,13 @@ get_species_text = function(url_list, text_full, text_tables){
 				}
 
 		#Remove text after species incertae sedis
-			text_species[[i]] = sub("\r\n[ ]+Species incertae sedis.*","", text_species[[i]])	
-		
+			text_species[[i]] = sub("\r\n[ ]+Species incertae sedis.*","", text_species[[i]])
+
 		#Remove text after references, acknowledgements, end notes, and further reading
 			text_species[[i]] = sub("\r\n[ ]+End [nN]ote[s]*\r\n.*","", text_species[[i]])
 			text_species[[i]] = sub("\r\n[ ]+Acknowledgment[s]*\r\n.*","", text_species[[i]])
 			text_species[[i]] = sub("\r\n[ ]+Reference[s]*\r\n.*","", text_species[[i]])
-			text_species[[i]] = sub("\r\n[ ]+Further [rR]eading\r\n.*","", text_species[[i]])	
+			text_species[[i]] = sub("\r\n[ ]+Further [rR]eading\r\n.*","", text_species[[i]])
 
 		#Convert to ASCII formatting (removes non-ASCII characters that interfere in downstream extraction of organism names)
 		#Converting from UTF-8 to latin1 to ASCII (in that order) results in fewest characters being removed
