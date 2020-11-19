@@ -6,6 +6,7 @@
 #' @importFrom xml2 read_html
 #' @importFrom rvest html_nodes html_text
 #' @importFrom svMisc progress
+#' @importFrom stringr word
 #' @export
 
 get_url_names = function(){
