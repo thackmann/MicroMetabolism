@@ -135,37 +135,36 @@ get_abstract = function(directory_fp, url_list, destfile_names_Bergey, html_list
 #' @importFrom svMisc progress
 #' @export
 get_taxonomy = function(directory_fp, url_list, destfile_names_Bergey, html_list){
-  setwd(directory_fp)
+	setwd(directory_fp)
+	
+	header_taxonomy = c("Phylum", "Class", "Order", "Family", "Genus")
+	selector_taxonomy = c(".partTile", ".supPartTile", ".subSubpartTile", ".subSubSubpartTile", ".citation__title")
+	taxonomy = data.frame(array(0,dim=c(length(url_list),length(header_taxonomy))))
+	colnames(taxonomy) = c(header_taxonomy)	
 
-  header_taxonomy = c("Phylum", "Class", "Order", "Family", "Genus")
-  selector_taxonomy = c(".partTile", ".supPartTile", ".subSubpartTile", ".subSubSubpartTile", ".citation__title")
-  taxonomy = data.frame(array(0,dim=c(length(url_list),length(header_taxonomy))))
-  colnames(taxonomy) = c(header_taxonomy)
+	for(i in 1:length(url_list))
+	{
+		html_filepath = file.path=(destfile_names_Bergey[[i]])
+		for(j in 1:length(header_taxonomy))
+		{
+			name_xml = html_nodes(html_list[[i]], selector_taxonomy[j])
+			name_text = html_text(name_xml)
+			if(identical(name_text, character(0))){name_text="NA"}
+			name_text = trimws(name_text)
+			taxonomy[i,j] = name_text
+		}
 
-  for(i in 1:length(url_list))
-  {
-    html_filepath = file.path=(destfile_names_Bergey[[i]])
-    for(j in 1:length(header_taxonomy))
-    {
-      name_xml = html_nodes(html_list[[i]], selector_taxonomy[j])
-      name_text = html_text(name_xml)
-      if(identical(name_text, character(0))){name_text="NA"}
-      name_text = trimws(name_text)
-      taxonomy[i,j] = name_text
-    }
-
-    #Convert to ASCII formatting (removes non-ASCII characters that interfere in downstream extraction of organism names)
-    #Converting from UTF-8 to latin1 to ASCII (in that order) results in fewest characters being removed
-    taxonomy[i,j] = iconv(taxonomy[i,j], from="UTF-8", to="latin1", "")
-    taxonomy[i,j] = iconv(taxonomy[i,j], from="latin1", to="ASCII", "")
-
-    #Show progress of loop
-    progress(value=i, max.value=length(url_list))
-  }
-
+		#Convert to ASCII formatting (removes non-ASCII characters that interfere in downstream extraction of organism names)
+		#Converting from UTF-8 to latin1 to ASCII (in that order) results in fewest characters being removed
+			taxonomy[i,j] = iconv(taxonomy[i,j], from="UTF-8", to="latin1", "")
+			taxonomy[i,j] = iconv(taxonomy[i,j], from="latin1", to="ASCII", "")
+	
+		#Show progress of loop
+			progress(value=i, max.value=length(url_list))
+	}
+	
   return(taxonomy)
 }
-
 
 #' Get Main Text
 #'
