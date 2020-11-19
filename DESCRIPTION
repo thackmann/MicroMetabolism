@@ -8,7 +8,7 @@ Authors@R:
            email = "tjhackmann@ucdavis.edu",
            comment = c(ORCID = "https://orcid.org/0000-0001-6455-1862"))
 Description: MicroMetabolism predicts metabolic traits of microbes from written descriptions. With it, users can download articles from Bergey's Manual, extract out names of microbial species, and retrieve descriptions for those species. Users can then predict metabolic traits from the descriptions using a neural network model. Full details and training data for two traits are provided in a forthcoming manuscript.
-Imports: dplyr, plyr, keras, reticulate, rvest, svMisc, tensorflow, tidyverse, xml2
+Imports: dplyr, plyr, keras, reticulate, rvest, stringr, svMisc, tensorflow, tidyverse, xml2
 License: `use_mit_license()`
 Encoding: UTF-8
 LazyData: true
