@@ -26,39 +26,6 @@ read_html_pages = function(directory_fp, url_list, destfile_names_Bergey){
   return(html_list)
 }
 
-#' Get Full Text
-#'
-#' This function gets the full text from the downloaded articles
-#'
-#' @param directory_fp A character string giving the file path for the download directory
-#' @param url_list A character vector of url names for articles
-#' @param destfile_names_Bergey A list of file names for articles
-#' @param html_list A xml_document and xml_node object for the articles
-#' @return A list containing the full text (one element per article)
-#' @importFrom rvest html_nodes html_text
-#' @importFrom svMisc progress
-#' @export
-get_full_text = function(directory_fp, url_list, destfile_names_Bergey, html_list=html_list){
-  setwd(directory_fp)
-
-  text_full = rep(list(list()), length(url_list))
-
-  for(i in 1:length(url_list))
-  {
-    html_filepath = file.path=(destfile_names_Bergey[[i]])
-
-    text_full_xml = html_nodes(html_list[[i]], ".article-row-left")
-    text_full[[i]] = html_text(text_full_xml)
-    if(identical(text_full[[i]], character(0))){text_full[[i]]=""}
-
-    #Show progress of loop
-    progress(value=i, max.value=length(url_list))
-  }
-
-  return(text_full)
-}
-
-
 #' Get Tables
 #'
 #' This function gets text of tables from the downloaded articles
