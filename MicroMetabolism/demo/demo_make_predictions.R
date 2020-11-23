@@ -1,6 +1,6 @@
 ##Install and load packages
 	install.packages("devtools")
-	devtools::install_github(repo="thackmann/MicroMetabolism")
+	devtools::install_github(repo="thackmann/MicroMetabolism", subdir="MicroMetabolism")
 	library(MicroMetabolism)
 
 ##Predict metabolic traits with neural networks
