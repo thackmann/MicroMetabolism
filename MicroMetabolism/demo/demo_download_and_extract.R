@@ -14,7 +14,7 @@
 	destfile_names_Bergey=set_html_names(url_list=url_list)
 
 	#Download HTML Pages
-	directory_fp="G:/My Drive/UF desktop BU/L drive BU/other/Bergey"
+	directory_fp="C:/My Directory"
 	download_html_pages(directory_fp=directory_fp, url_list=url_list, destfile_names_Bergey=destfile_names_Bergey)
 
 ##Extract text from Bergey's Manual
