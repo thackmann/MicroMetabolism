@@ -32,7 +32,7 @@ In R, run
   
 ## Troubleshooting
 * <a href= "https://github.com/thackmann/MicroMetabolism/blob/main/troubleshoot/cannot-run-TensorFlow.md">When running R, TensorFlow delivers message "Error: Installation of TensorFlow not found."</a>
-
+* <a href= "https://github.com/thackmann/MicroMetabolism/blob/main/troubleshoot/cannot-download-Bergey.md">Articles fail to download from Bergey's Manual, or extracted information looks incomplete"</a>
  
 ## License
 Copyright 2020 Timothy J. Hackmann
