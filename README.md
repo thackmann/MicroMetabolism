@@ -32,6 +32,7 @@ In R, run
   
 ## Troubleshooting
 * When running R, TensorFlow delivers message "Error: Installation of TensorFlow not found."
+
 TensorFlow did not install correctly.  Mostly likely, Miniconda did not install correctly or its PATH environment variable is not set correctly.  Try uninstalling Miniconda and trying again.
  
 ## License
