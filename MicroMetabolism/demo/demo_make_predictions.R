@@ -15,7 +15,7 @@
 ##Predict metabolic traits with neural networks
 	#Load Data
 	data_fp = system.file("extdata", "train_eval_data.csv", package="MicroMetabolism")
-	raw_data = load_data(data_fp)
+	raw_data = MicroMetabolism::load_data(data_fp)
 
 	#Get Labels
 	labels_colname = "Label_trait"
