@@ -31,9 +31,8 @@ In R, run
 3)  Use the data extracted to prepare training data.  Specifically, read written descriptions and label a subset as positive or negative for traits.   See <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/inst/extdata/train_eval_data.csv">test data</a> for an example.
   
 ## Troubleshooting
-* When running R, TensorFlow delivers message "Error: Installation of TensorFlow not found."
+*<a href= "https://github.com/thackmann/MicroMetabolism/blob/main/troubleshoot/cannot-run-TensorFlow.md">When running R, TensorFlow delivers message "Error: Installation of TensorFlow not found.</a>
 
-TensorFlow did not install correctly.  Mostly likely, Miniconda did not install correctly or its PATH environment variable is not set correctly.  Try uninstalling Miniconda and trying again.
  
 ## License
 Copyright 2020 Timothy J. Hackmann
