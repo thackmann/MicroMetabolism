@@ -64,6 +64,6 @@
 	x_eval = data$x_eval
 	y_pred = make_predictions(model_fp, x_eval)
   	predictions = data.frame(ID=data$eval_ID, Predicted_trait=y_pred)
- 	 predictions$Predicted_trait[which(predictions$Predicted_trait==1)]=label_positive
+ 	predictions$Predicted_trait[which(predictions$Predicted_trait==1)]=label_positive
   	predictions$Predicted_trait[which(predictions$Predicted_trait==0)]=label_negative
   	print(predictions)
