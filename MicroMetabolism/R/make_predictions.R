@@ -1,72 +1,51 @@
-#' Load Data
+#' Get IDs
 #'
-#' This function loads a csv file containing the raw data for input into the neural network
+#' This function gets species IDs from the raw data
 #'
-#' @param data_fp A character string giving the file path of the csv file
-#' @return A dataframe containing the data
+#' @param raw_data A dataframe containing the raw data (columns for ID, genus, species, text, and labels)
+#' @param ID_colname  A character string giving the column name for IDs in the raw data
+#' @return A numeric vector IDs with one element per species
+#' @importFrom dplyr "%>%"
 #' @export
-load_data = function(data_fp){
-  raw_data = read.csv(data_fp, stringsAsFactors=FALSE)
-  raw_data$ID <- seq.int(nrow(raw_data))
-
-  return(raw_data)
+get_ID = function(raw_data, ID_colname){
+  ID = (raw_data %>% select(all_of(ID_colname)))
+  ID = ID[[1]]
+  return(ID)
 }
-
-#' Load Parameters
-#'
-#' This function loads a csv file containing parameters to run the neural network
-#'
-#' @param parameters_fp A character string giving the file path of the csv file
-#' @return A dataframe containing the parameters
-#' @export
-load_parameters = function(parameters_fp){
-  parameters = read.csv(parameters_fp, stringsAsFactors=FALSE)
-
-  return(parameters)
-}
-
-#' Create CSV for Evaluation Metrics
-#'
-#' This function creates a csv file where evaluation metrics can be stored
-#'
-#' @param parameters A dataframe containing the parameters
-#' @return A dataframe with columns for evalaution metrics
-#' @export
-
-create_evaluation_file = function(parameters, evaluation_fp){
-  evaluation_summary = parameters
-
-  evaluation_summary$accuracy=NA
-  evaluation_summary$precision=NA
-  evaluation_summary$sensitivity=NA
-
-  write.csv(evaluation_summary, evaluation_fp)
-}
-
 
 #' Get Labels
 #'
-#' This function gets data labels from the raw data and formats it for input into the neural network
+#' This function gets data labels from the raw data and formats them for input into the neural network
 #'
-#' @param raw_data A dataframe containing the data
-#' @param labels_colname  A character string giving the column name for labels in the raw data
-#' @return A numeric vector of data labels with one element per species (1=trait positive, 0=trait negative)
+#' @param raw_data A dataframe containing the raw data (columns for ID, genus, species, text, and labels)
+#' @param labels_colname  A character string giving the column name for labels in the raw data 
+#' @param label_positive  A character string for when trait is labeled as positive
+#' @param label_negative  A character string for when trait is labeled as negative
+#' @param label_none  A character string for when trait is not labeled
+#' @return A numeric vector of data labels with one element per species (1=trait positive, 0=trait negative, NA=trait not labeled)
 #' @importFrom dplyr select
-#' @export
-get_labels = function(raw_data, labels_colname){
+#' @expo
+#'
+get_labels = function(raw_data, labels_colname, label_positive, label_negative, label_none){
   labels = (raw_data %>% select(all_of(labels_colname)))
   labels = labels[[1]]
-  labels = ifelse(labels == "Y", yes = 1, no = 0)
+
+  labels[which(labels==label_positive)]=1
+  labels[which(labels==label_negative)]=0
+  labels[which(labels==label_none)]=""
+
+  labels=(as.numeric(labels))
 
   return(labels)
 }
+
 
 #' Get Text
 #'
 #' This function gets text from the raw data and formats it for tokenization
 #'
-#' @param raw_data A dataframe containing the data
-#' @param labels_colname  A character string giving the column name for text in the raw data
+#' @param raw_data A dataframe containing the raw data (columns for ID, genus, species, text, and labels)
+#' @param text_colname  A character string giving the column name for text in the raw data
 #' @return A character vector of text with one element per species
 #' @importFrom dplyr "%>%"
 #' @export
@@ -176,54 +155,48 @@ set_model_RNN = function(maxlen=20000, max_vocab=3000, embedding_dim=128, lstm_u
 
 #' Set Data
 #'
-#' This function splits labels and text into training and evaluation data for input into the network
+#' This function splits labels and text into training and evaluation data for input into the network.
 #'
+#' @param ID A numeric vector IDs with one element per species
 #' @param text_seqs_padded A matrix of tokenized and padded text
-#' @param labels A numeric vector of data labels with one element per species (1=positive, 0=negative)
-#' @param train_fraction A numeric scalar giving the fraction of data to be used for training
-#' @return A list of training and evaluation data
+#' @param labels A numeric vector of data labels with one element per species (1=trait positive, 0=trait negative, NA=trait not labeled)
+#' @param train_fraction A numeric scalar giving the fraction of data to be split off for training; if set to 1, all data is used for training except those with no labels
+#' @return A list of training and evaluation data and their species IDs
 #' @export
-  set_data = function(text_seqs_padded, labels, train_fraction){
-   ind = sample(c(TRUE, FALSE), length(text_seqs), replace=TRUE, prob=c(train_fraction, 1-train_fraction))
-   x_data = text_seqs_padded
-   x_train = x_data[ind,]
-   x_eval = x_data[!ind,]
-   y_data = labels
-   y_train = y_data[ind]
-   y_eval = y_data[!ind]
+set_data = function (ID, text_seqs_padded, labels, train_fraction=1)
+{
+  x_data = text_seqs_padded
+  y_data = labels
 
-   data=list(x_train, x_eval, y_train, y_eval)
-   names(data) = c("x_train", "x_eval", "y_train", "y_eval")
-
-   return(data)
+  if(train_fraction<1)
+  {
+    ind = sample(c(TRUE, FALSE), length(text_seqs), replace = TRUE,
+                 prob = c(train_fraction, 1 - train_fraction))
+    
+    train_ID = ID[ind]
+    eval_ID = ID[!ind]
+    x_train = x_data[ind, ]
+    x_eval = x_data[!ind, ]
+    y_train = y_data[ind]
+    y_eval = y_data[!ind]
   }
 
-#' Train Model
-#'
-#' This function trains the neural network model and saves it in HDF5 format
-#'
-#' @param model A Keras neural network model
-#' @param x_train A matrix of of tokenized and paddded text used as training data
-#' @param y_train A numeric vector of labels used as training data
-#' @param batch_size A numeric scalar of the batch size used in training
-#' @param epochs A numeric scalar of the number of epochs used for training
-#' @param model_fp The file path to save the model in HDF5 format
-#' @return A list of tokenized text with one element per species
-#' @importFrom dplyr "%>%"
-#' @importFrom keras fit save_model_hdf5
-#' @export
-  train_model = function(model, x_train, y_train, batch_size=32, epochs=10, model_fp){
-   hist = model %>%
-     fit(
-       x = x_train,
-       y = y_train,
-       batch_size = batch_size,
-       epochs = epochs,
-       validation_split = 0
-     )
-
-   save_model_hdf5(model, model_fp)
+  if(train_fraction==1)
+  {
+    train_ID = ID[!is.na(labels)]
+    eval_ID = ID[is.na(labels)]
+    x_train = x_data[!is.na(labels),]
+    x_eval = x_data[is.na(labels),]
+    y_train = y_data[!is.na(labels)]
+    y_eval = y_data[is.na(labels)]
   }
+
+  data=list(train_ID, x_train, y_train, eval_ID, x_eval, y_eval)
+  names(data) = c("train_ID", "x_train", "y_train", "eval_ID", "x_eval", "y_eval")
+  
+  return(data)
+}
+
 
 #' Make Predictions
 #'
@@ -292,4 +265,49 @@ save_evaluation = function(accuracy, precision, sensitivity, evaluation_number, 
   evaluation_summary$sensitivity[evaluation_number]=sensitivity
 
   write.csv(evaluation_summary, evaluation_fp, row.names=FALSE)
+}
+
+#' Load Data
+#'
+#' This function loads a csv file containing the raw data for input into the neural network
+#'
+#' @param data_fp A character string giving the file path of the csv file
+#' @return A dataframe containing the raw data (columns for ID, genus, species, text, and labels)
+#' @export
+load_data = function(data_fp){
+  raw_data = read.csv(data_fp, stringsAsFactors=FALSE)
+  raw_data$ID <- seq.int(nrow(raw_data))
+  
+  return(raw_data)
+}
+
+#' Load Parameters
+#'
+#' This function loads a csv file containing parameters to run the neural network
+#'
+#' @param parameters_fp A character string giving the file path of the csv file
+#' @return A dataframe containing the parameters
+#' @export
+load_parameters = function(parameters_fp){
+  parameters = read.csv(parameters_fp, stringsAsFactors=FALSE)
+  
+  return(parameters)
+}
+
+#' Create CSV for Evaluation Metrics
+#'
+#' This function creates a csv file where evaluation metrics can be stored
+#'
+#' @param parameters A dataframe containing the parameters
+#' @return A dataframe with columns for evalaution metrics
+#' @export
+
+create_evaluation_file = function(parameters, evaluation_fp){
+  evaluation_summary = parameters
+  
+  evaluation_summary$accuracy=NA
+  evaluation_summary$precision=NA
+  evaluation_summary$sensitivity=NA
+  
+  write.csv(evaluation_summary, evaluation_fp)
 }
