@@ -32,7 +32,7 @@ In R, run
   
 ### Testing accuracy
 #### With test data
-1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_make_predictions.R">demo script</a> for making predictions.
+1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_test_accuracy.R">demo script</a> for testing accuracy.
 2)  In R menu, click “Edit -> Run all”.  Accept all prompts to update R packages and install Miniconda.  
 
 #### With user data
