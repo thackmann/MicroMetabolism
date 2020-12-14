@@ -1,101 +1,101 @@
-Genus,Species,Sentences_trait,Label_trait
-Genus_1,Species_1,Metabolism is fermentative,Y
-Genus_2,Species_2,Anaerobic and fermentative metabolism,Y
-Genus_3,Species_3,All strains ferment sugars to acetic acid,Y
-Genus_4,Species_4,Strains ferment many substrates,Y
-Genus_5,Species_5,Carbohydrates are fermented to lactic acid,Y
-Genus_6,Species_6,Amino acids are fermented,Y
-Genus_7,Species_7,Fermentation is the principal type of metabolism,Y
-Genus_8,Species_8,"Chemoorganotrophic, fermentative metabolism",Y
-Genus_9,Species_9,"Facultatively anaerobic, having both a respiratory and fermentative metabolism",Y
-Genus_10,Species_10,Anaerobic and ferments glucose and other sugars,Y
-Genus_11,Species_11,Carbohydrate fermentation is via the pentose shunt,Y
-Genus_12,Species_12,Capable of both fermentative and respiratory metabolism,Y
-Genus_13,Species_13,Glucose and pyruvate are fermented,Y
-Genus_14,Species_14,Capable of fermentative growth on carbohydrates,Y
-Genus_15,Species_15,The products of glucose fermentation are acetate and hydrogen,Y
-Genus_16,Species_16,Fermentative metabolism,Y
-Genus_17,Species_17,Fermentation of glucose results in production of lactate and ethanol,Y
-Genus_18,Species_18,"Some strains ferment glucose, whereas other strains ferment amino acids",Y
-Genus_19,Species_19,Ferments amino acids by using the Stickland reaction,Y
-Genus_20,Species_20,Strains are capable of carrying out fermentation,Y
-Genus_21,Species_21,Metabolism is nonfermentative,N
-Genus_22,Species_22,Strains are nonfermentative,N
-Genus_23,Species_23,Strains have respiratory type of metabolism and are nonfermentative,N
-Genus_24,Species_24,Nonfermentative type of metabolism,N
-Genus_25,Species_25,Aerobic and nonfermentative,N
-Genus_26,Species_26,Nonfermentative and respiratory metabolism,N
-Genus_27,Species_27,Strains are observed to be nonfermentative,N
-Genus_28,Species_28,Nonfermentative when grown on organic compounds,N
-Genus_29,Species_29,Use carbohydrates through nonfermentative metabolism,N
-Genus_30,Species_30,Nonfermentative when grown on carbohydrates,N
-Genus_31,Species_31,Growth under aerobic conditions indicates nonfermentative metabolism,N
-Genus_32,Species_32,Grows aerobically and is nonfermentative,N
-Genus_33,Species_33,Nonfermentative and oxidase positive,N
-Genus_34,Species_34,Anaerobic but nonfermentative,N
-Genus_35,Species_35,"Chemoorganotrophic, nonfermentative metabolism",N
-Genus_36,Species_36,"Aerobic, having  respiratory but nonfermentative metabolism",N
-Genus_37,Species_37,,N
-Genus_38,Species_38,,N
-Genus_39,Species_39,,N
-Genus_40,Species_40,,N
-Genus_41,Species_41,,N
-Genus_42,Species_42,,N
-Genus_43,Species_43,,N
-Genus_44,Species_44,,N
-Genus_45,Species_45,,N
-Genus_46,Species_46,,N
-Genus_47,Species_47,,N
-Genus_48,Species_48,,N
-Genus_49,Species_49,,N
-Genus_50,Species_50,,N
-Genus_51,Species_51,,N
-Genus_52,Species_52,,N
-Genus_53,Species_53,,N
-Genus_54,Species_54,,N
-Genus_55,Species_55,,N
-Genus_56,Species_56,,N
-Genus_57,Species_57,,N
-Genus_58,Species_58,,N
-Genus_59,Species_59,,N
-Genus_60,Species_60,,N
-Genus_61,Species_61,,N
-Genus_62,Species_62,,N
-Genus_63,Species_63,,N
-Genus_64,Species_64,,N
-Genus_65,Species_65,,N
-Genus_66,Species_66,,N
-Genus_67,Species_67,,N
-Genus_68,Species_68,,N
-Genus_69,Species_69,,N
-Genus_70,Species_70,,N
-Genus_71,Species_71,,N
-Genus_72,Species_72,,N
-Genus_73,Species_73,,N
-Genus_74,Species_74,,N
-Genus_75,Species_75,,N
-Genus_76,Species_76,,N
-Genus_77,Species_77,,N
-Genus_78,Species_78,,N
-Genus_79,Species_79,,N
-Genus_80,Species_80,,N
-Genus_81,Species_81,,N
-Genus_82,Species_82,,N
-Genus_83,Species_83,,N
-Genus_84,Species_84,,N
-Genus_85,Species_85,,N
-Genus_86,Species_86,,N
-Genus_87,Species_87,,N
-Genus_88,Species_88,,N
-Genus_89,Species_89,,N
-Genus_90,Species_90,,N
-Genus_91,Species_91,,N
-Genus_92,Species_92,,N
-Genus_93,Species_93,,N
-Genus_94,Species_94,,N
-Genus_95,Species_95,,N
-Genus_96,Species_96,,N
-Genus_97,Species_97,,N
-Genus_98,Species_98,,N
-Genus_99,Species_99,,N
-Genus_100,Species_100,,N
+ID,Genus,Species,Sentences_trait,Label_trait
+1,Genus_1,Species_1,Metabolism is fermentative,Y
+2,Genus_2,Species_2,Anaerobic and fermentative metabolism,Y
+3,Genus_3,Species_3,All strains ferment sugars to acetic acid,Y
+4,Genus_4,Species_4,Strains ferment many substrates,Y
+5,Genus_5,Species_5,Carbohydrates are fermented to lactic acid,Y
+6,Genus_6,Species_6,Amino acids are fermented,Y
+7,Genus_7,Species_7,Fermentation is the principal type of metabolism,Y
+8,Genus_8,Species_8,"Chemoorganotrophic, fermentative metabolism",Y
+9,Genus_9,Species_9,"Facultatively anaerobic, having both a respiratory and fermentative metabolism",Y
+10,Genus_10,Species_10,Anaerobic and ferments glucose and other sugars,Y
+11,Genus_11,Species_11,Carbohydrate fermentation is via the pentose shunt,Y
+12,Genus_12,Species_12,Capable of both fermentative and respiratory metabolism,Y
+13,Genus_13,Species_13,Glucose and pyruvate are fermented,Y
+14,Genus_14,Species_14,Capable of fermentative growth on carbohydrates,Y
+15,Genus_15,Species_15,The products of glucose fermentation are acetate and hydrogen,Y
+16,Genus_16,Species_16,Fermentative metabolism,Y
+17,Genus_17,Species_17,Fermentation of glucose results in production of lactate and ethanol,Y
+18,Genus_18,Species_18,"Some strains ferment glucose, whereas other strains ferment amino acids",Y
+19,Genus_19,Species_19,Ferments amino acids by using the Stickland reaction,Y
+20,Genus_20,Species_20,Strains are capable of carrying out fermentation,Y
+21,Genus_21,Species_21,Metabolism is nonfermentative,N
+22,Genus_22,Species_22,Strains are nonfermentative,N
+23,Genus_23,Species_23,Strains have respiratory type of metabolism and are nonfermentative,N
+24,Genus_24,Species_24,Nonfermentative type of metabolism,N
+25,Genus_25,Species_25,Aerobic and nonfermentative,N
+26,Genus_26,Species_26,Nonfermentative and respiratory metabolism,N
+27,Genus_27,Species_27,Strains are observed to be nonfermentative,N
+28,Genus_28,Species_28,Nonfermentative when grown on organic compounds,N
+29,Genus_29,Species_29,Use carbohydrates through nonfermentative metabolism,N
+30,Genus_30,Species_30,Nonfermentative when grown on carbohydrates,N
+31,Genus_31,Species_31,Growth under aerobic conditions indicates nonfermentative metabolism,N
+32,Genus_32,Species_32,Grows aerobically and is nonfermentative,N
+33,Genus_33,Species_33,Nonfermentative and oxidase positive,N
+34,Genus_34,Species_34,Anaerobic but nonfermentative,N
+35,Genus_35,Species_35,"Chemoorganotrophic, nonfermentative metabolism",N
+36,Genus_36,Species_36,"Aerobic, having  respiratory but nonfermentative metabolism",N
+37,Genus_37,Species_37,,N
+38,Genus_38,Species_38,,N
+39,Genus_39,Species_39,,N
+40,Genus_40,Species_40,,N
+41,Genus_41,Species_41,,N
+42,Genus_42,Species_42,,N
+43,Genus_43,Species_43,,N
+44,Genus_44,Species_44,,N
+45,Genus_45,Species_45,,N
+46,Genus_46,Species_46,,N
+47,Genus_47,Species_47,,N
+48,Genus_48,Species_48,,N
+49,Genus_49,Species_49,,N
+50,Genus_50,Species_50,,N
+51,Genus_51,Species_51,,N
+52,Genus_52,Species_52,,N
+53,Genus_53,Species_53,,N
+54,Genus_54,Species_54,,N
+55,Genus_55,Species_55,,N
+56,Genus_56,Species_56,,N
+57,Genus_57,Species_57,,N
+58,Genus_58,Species_58,,N
+59,Genus_59,Species_59,,N
+60,Genus_60,Species_60,,N
+61,Genus_61,Species_61,,N
+62,Genus_62,Species_62,,N
+63,Genus_63,Species_63,,N
+64,Genus_64,Species_64,,N
+65,Genus_65,Species_65,,N
+66,Genus_66,Species_66,,N
+67,Genus_67,Species_67,,N
+68,Genus_68,Species_68,,N
+69,Genus_69,Species_69,,N
+70,Genus_70,Species_70,,N
+71,Genus_71,Species_71,,N
+72,Genus_72,Species_72,,N
+73,Genus_73,Species_73,,N
+74,Genus_74,Species_74,,N
+75,Genus_75,Species_75,,N
+76,Genus_76,Species_76,,N
+77,Genus_77,Species_77,,N
+78,Genus_78,Species_78,,N
+79,Genus_79,Species_79,,N
+80,Genus_80,Species_80,,N
+81,Genus_81,Species_81,,N
+82,Genus_82,Species_82,,N
+83,Genus_83,Species_83,,N
+84,Genus_84,Species_84,,N
+85,Genus_85,Species_85,,N
+86,Genus_86,Species_86,,N
+87,Genus_87,Species_87,,N
+88,Genus_88,Species_88,,N
+89,Genus_89,Species_89,,N
+90,Genus_90,Species_90,,N
+91,Genus_91,Species_91,,N
+92,Genus_92,Species_92,,N
+93,Genus_93,Species_93,,N
+94,Genus_94,Species_94,,N
+95,Genus_95,Species_95,,N
+96,Genus_96,Species_96,,N
+97,Genus_97,Species_97,,N
+98,Genus_98,Species_98,,N
+99,Genus_99,Species_99,,N
+100,Genus_100,Species_100,,N
