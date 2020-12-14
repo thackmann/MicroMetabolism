@@ -39,7 +39,7 @@ In R, run
 #### With user data
 1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_download_and_extract.R">demo script</a> for downloading articles and extracting descriptions.
 2)  In R menu, click “Edit -> Run all”.
-3)  Use the data extracted to prepare training data.  Specifically, read written descriptions and label species as positive or negative for traits. All species must be labeled, or accuracy cannot be evalauted.  See <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/inst/extdata/test_accuracy.csv">test data</a> for an example.
+3)  Use the data extracted to prepare training and evaluation data.  Specifically, read written descriptions and label species as positive or negative for traits. All species must be labeled, or accuracy cannot be evalauted.  See <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/inst/extdata/test_accuracy.csv">test data</a> for an example.
 
 ## Troubleshooting
 * <a href= "https://github.com/thackmann/MicroMetabolism/blob/main/troubleshoot/cannot-run-TensorFlow.md">When running R, TensorFlow delivers message "Error: Installation of TensorFlow not found."</a>
