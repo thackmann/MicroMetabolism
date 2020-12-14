@@ -18,7 +18,7 @@ get_ID = function(raw_data, ID_colname){
 #' This function gets data labels from the raw data and formats them for input into the neural network
 #'
 #' @param raw_data A dataframe containing the raw data (columns for ID, genus, species, text, and labels)
-#' @param labels_colname  A character string giving the column name for labels in the raw data 
+#' @param labels_colname  A character string giving the column name for labels in the raw data
 #' @param label_positive  A character string for when trait is labeled as positive
 #' @param label_negative  A character string for when trait is labeled as negative
 #' @param label_none  A character string for when trait is not labeled
@@ -172,7 +172,7 @@ set_data = function (ID, text_seqs_padded, labels, train_fraction=1)
   {
     ind = sample(c(TRUE, FALSE), length(text_seqs), replace = TRUE,
                  prob = c(train_fraction, 1 - train_fraction))
-    
+
     train_ID = ID[ind]
     eval_ID = ID[!ind]
     x_train = x_data[ind, ]
@@ -193,10 +193,36 @@ set_data = function (ID, text_seqs_padded, labels, train_fraction=1)
 
   data=list(train_ID, x_train, y_train, eval_ID, x_eval, y_eval)
   names(data) = c("train_ID", "x_train", "y_train", "eval_ID", "x_eval", "y_eval")
-  
+
   return(data)
 }
 
+#' Train Model
+#'
+#' This function trains the neural network model and saves it in HDF5 format
+#'
+#' @param model A Keras neural network model
+#' @param x_train A matrix of of tokenized and paddded text used as training data
+#' @param y_train A numeric vector of labels used as training data
+#' @param batch_size A numeric scalar of the batch size used in training
+#' @param epochs A numeric scalar of the number of epochs used for training
+#' @param model_fp The file path to save the model in HDF5 format
+#' @return A list of tokenized text with one element per species
+#' @importFrom dplyr "%>%"
+#' @importFrom keras fit save_model_hdf5
+#' @export
+train_model = function(model, x_train, y_train, batch_size=32, epochs=10, model_fp){
+  hist = model %>%
+    fit(
+      x = x_train,
+      y = y_train,
+      batch_size = batch_size,
+      epochs = epochs,
+      validation_split = 0
+    )
+
+  save_model_hdf5(model, model_fp)
+}
 
 #' Make Predictions
 #'
@@ -277,7 +303,7 @@ save_evaluation = function(accuracy, precision, sensitivity, evaluation_number, 
 load_data = function(data_fp){
   raw_data = read.csv(data_fp, stringsAsFactors=FALSE)
   raw_data$ID <- seq.int(nrow(raw_data))
-  
+
   return(raw_data)
 }
 
@@ -290,7 +316,7 @@ load_data = function(data_fp){
 #' @export
 load_parameters = function(parameters_fp){
   parameters = read.csv(parameters_fp, stringsAsFactors=FALSE)
-  
+
   return(parameters)
 }
 
@@ -304,10 +330,10 @@ load_parameters = function(parameters_fp){
 
 create_evaluation_file = function(parameters, evaluation_fp){
   evaluation_summary = parameters
-  
+
   evaluation_summary$accuracy=NA
   evaluation_summary$precision=NA
   evaluation_summary$sensitivity=NA
-  
+
   write.csv(evaluation_summary, evaluation_fp)
 }
