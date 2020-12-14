@@ -14,13 +14,13 @@
 
 ##Predict metabolic traits with neural networks
 	#Load Data
-	data_fp = system.file("extdata", "make_predictions.csv", package="MicroMetabolism")
+	data_fp = system.file("extdata", "test_accuracy.csv", package="MicroMetabolism")
   raw_data = read.csv(data_fp, stringsAsFactors=FALSE)
 
   #Get IDs
   ID_colname = "ID"
   ID=get_ID(raw_data, ID_colname)
-
+  
 	#Get Labels
 	labels_colname = "Label_trait"
 	label_positive = "Y"
@@ -49,7 +49,7 @@
 	model = set_model(maxlen, max_vocab, embedding_dim, filters, kernel_size, hidden_dim)
 
 	#Set Data
-	train_fraction = 1
+	train_fraction = 0.8
 	data = set_data(ID, text_seqs_padded, labels, train_fraction)
 
 	#Train Model
@@ -63,7 +63,8 @@
 	#Make Predictions
 	x_eval = data$x_eval
 	y_pred = make_predictions(model_fp, x_eval)
-  predictions = data.frame(ID=data$eval_ID, Predicted_trait=y_pred)
-  predictions$Predicted_trait[which(predictions$Predicted_trait==1)]=label_positive
-  predictions$Predicted_trait[which(predictions$Predicted_trait==0)]=label_negative
-  print(predictions)
+	
+	#Evaluate Predictions
+	y_eval = data$y_eval
+	metrics = evaluate_predictions(y_pred, y_eval)
+	print(metrics)
