@@ -20,6 +20,7 @@ In R, run
 2)  In the R menu, click “File -> New script”.  Paste the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_make_predictions.R">demo script</a> for making predictions into the new window.
 3)  In R menu, click “Edit -> Run all”.  
 
+## Operation 
 ### Making predictions		
 #### With test data
 1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_make_predictions.R">demo script</a> for making predictions.
