@@ -15,11 +15,11 @@
 ##Predict metabolic traits with neural networks
 	#Load Data
 	data_fp = system.file("extdata", "test_accuracy.csv", package="MicroMetabolism")
-  raw_data = read.csv(data_fp, stringsAsFactors=FALSE)
+	raw_data = read.csv(data_fp, stringsAsFactors=FALSE)
 
-  #Get IDs
-  ID_colname = "ID"
-  ID=get_ID(raw_data, ID_colname)
+	#Get IDs
+	ID_colname = "ID"
+	ID=get_ID(raw_data, ID_colname)
   
 	#Get Labels
 	labels_colname = "Label_trait"
