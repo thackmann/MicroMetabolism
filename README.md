@@ -18,13 +18,13 @@ In R, run
 ### New R users
 1)  Download and install R (https://cran.r-project.org/mirrors.html).  Install latest version (or any version later than v. 3.6.0).
 2)  In the R menu, click “File -> New script”.  Paste the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_make_predictions.R">demo script</a> for making predictions into the new window.
-3)  In R menu, click “Edit -> Run all”.  
+3)  In R menu, click “Edit -> Run all”.  Accept all prompts to update R packages and install Miniconda.  
 
 ## Operation 
 ### Making predictions		
 #### With test data
 1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_make_predictions.R">demo script</a> for making predictions.
-2)  In R menu, click “Edit -> Run all”.  Accept all prompts to update R packages and install Miniconda.  
+2)  In R menu, click “Edit -> Run all”.
 
 #### With user data
 1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_download_and_extract.R">demo script</a> for downloading articles and extracting descriptions.
@@ -34,7 +34,7 @@ In R, run
 ### Testing accuracy
 #### With test data
 1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_test_accuracy.R">demo script</a> for testing accuracy.
-2)  In R menu, click “Edit -> Run all”.  Accept all prompts to update R packages and install Miniconda.  
+2)  In R menu, click “Edit -> Run all”.  
 
 #### With user data
 1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_download_and_extract.R">demo script</a> for downloading articles and extracting descriptions.
