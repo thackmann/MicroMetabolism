@@ -10,7 +10,7 @@ load_data(data_fp)
 \item{data_fp}{A character string giving the file path of the csv file}
 }
 \value{
-A dataframe containing the data
+A dataframe containing the raw data (columns for ID, genus, species, text, and labels)
 }
 \description{
 This function loads a csv file containing the raw data for input into the neural network

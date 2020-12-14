@@ -7,9 +7,9 @@
 get_text(raw_data, text_colname)
 }
 \arguments{
-\item{raw_data}{A dataframe containing the data}
+\item{raw_data}{A dataframe containing the raw data (columns for ID, genus, species, text, and labels)}
 
-\item{labels_colname}{A character string giving the column name for text in the raw data}
+\item{text_colname}{A character string giving the column name for text in the raw data}
 }
 \value{
 A character vector of text with one element per species

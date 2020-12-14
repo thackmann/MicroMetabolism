@@ -4,16 +4,28 @@
 \alias{get_labels}
 \title{Get Labels}
 \usage{
-get_labels(raw_data, labels_colname)
+get_labels(
+  raw_data,
+  labels_colname,
+  label_positive,
+  label_negative,
+  label_none
+)
 }
 \arguments{
-\item{raw_data}{A dataframe containing the data}
+\item{raw_data}{A dataframe containing the raw data (columns for ID, genus, species, text, and labels)}
 
 \item{labels_colname}{A character string giving the column name for labels in the raw data}
+
+\item{label_positive}{A character string for when trait is labeled as positive}
+
+\item{label_negative}{A character string for when trait is labeled as negative}
+
+\item{label_none}{A character string for when trait is not labeled}
 }
 \value{
-A numeric vector of data labels with one element per species (1=trait positive, 0=trait negative)
+A numeric vector of data labels with one element per species (1=trait positive, 0=trait negative, NA=trait not labeled)
 }
 \description{
-This function gets data labels from the raw data and formats it for input into the neural network
+This function gets data labels from the raw data and formats them for input into the neural network
 }
