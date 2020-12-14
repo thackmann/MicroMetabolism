@@ -20,16 +20,26 @@ In R, run
 2)  In the R menu, click “File -> New script”.  Paste the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_make_predictions.R">demo script</a> for making predictions into the new window.
 3)  In R menu, click “Edit -> Run all”.  
 
-## Operation 
-### With test data
+### Making predictions		
+#### With test data
 1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_make_predictions.R">demo script</a> for making predictions.
 2)  In R menu, click “Edit -> Run all”.  Accept all prompts to update R packages and install Miniconda.  
 
-### With user data
+#### With user data
 1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_download_and_extract.R">demo script</a> for downloading articles and extracting descriptions.
 2)  In R menu, click “Edit -> Run all”.
-3)  Use the data extracted to prepare training data.  Specifically, read written descriptions and label a subset as positive or negative for traits.   See <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/inst/extdata/train_eval_data.csv">test data</a> for an example.
+3)  Use the data extracted to prepare training data.  Specifically, read written descriptions and label some species as positive or negative for traits. Species not labeled will have their traits predicted.  See <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/inst/extdata/make_predictions.csv">test data</a> for an example.
   
+### Testing accuracy
+#### With test data
+1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_make_predictions.R">demo script</a> for making predictions.
+2)  In R menu, click “Edit -> Run all”.  Accept all prompts to update R packages and install Miniconda.  
+
+#### With user data
+1)  In R, open the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_download_and_extract.R">demo script</a> for downloading articles and extracting descriptions.
+2)  In R menu, click “Edit -> Run all”.
+3)  Use the data extracted to prepare training data.  Specifically, read written descriptions and label species as positive or negative for traits. All species must be labeled, or accuracy cannot be evalauted.  See <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/inst/extdata/test_accuracy.csv">test data</a> for an example.
+
 ## Troubleshooting
 * <a href= "https://github.com/thackmann/MicroMetabolism/blob/main/troubleshoot/cannot-run-TensorFlow.md">When running R, TensorFlow delivers message "Error: Installation of TensorFlow not found."</a>
 * <a href= "https://github.com/thackmann/MicroMetabolism/blob/main/troubleshoot/cannot-download-Bergey.md">Articles fail to download from Bergey's Manual, or extracted information looks incomplete</a>
