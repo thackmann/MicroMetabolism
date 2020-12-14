@@ -24,7 +24,7 @@ get_ID = function(raw_data, ID_colname){
 #' @param label_none  A character string for when trait is not labeled
 #' @return A numeric vector of data labels with one element per species (1=trait positive, 0=trait negative, NA=trait not labeled)
 #' @importFrom dplyr select
-#' @expo
+#' @export
 #'
 get_labels = function(raw_data, labels_colname, label_positive, label_negative, label_none){
   labels = (raw_data %>% select(all_of(labels_colname)))
