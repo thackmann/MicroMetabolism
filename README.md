@@ -16,7 +16,7 @@ In R, run
 <font face="Courier New">devtools::install_github(repo="thackmann/MicroMetabolism", subdir="MicroMetabolism")</font> 
 
 ### New R users
-1)  Download and install R (https://cran.r-project.org/mirrors.html).  Install latest version (or any version later than v. 3.6.0).
+1)  Download and install R (https://cloud.r-project.org/).  Install latest version (or any version later than v. 3.6.0).
 2)  In the R menu, click “File -> New script”.  Paste the <a href="https://github.com/thackmann/MicroMetabolism/blob/master/MicroMetabolism/demo/demo_make_predictions.R">demo script</a> for making predictions into the new window.
 3)  In R menu, click “Edit -> Run all”.  Accept all prompts to update R packages and install Miniconda.  
 
