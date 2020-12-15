@@ -1,4 +1,13 @@
-##Install and load packages
+##Install TensorFlow
+	install.packages("tensorflow")
+	install.packages("remotes")
+	remotes::install_github("rstudio/reticulate")
+	remotes::install_github("rstudio/tensorflow")
+	remotes::install_github("rstudio/keras")
+	library(tensorflow)
+	install_tensorflow()
+
+##Install and load MicroMetabolism
 	install.packages("devtools")
 	devtools::install_github(repo="thackmann/MicroMetabolism", subdir="MicroMetabolism")
 	library(MicroMetabolism)
