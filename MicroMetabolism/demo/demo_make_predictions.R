@@ -1,8 +1,3 @@
-##Install and load packages
-	install.packages("devtools")
-	devtools::install_github(repo="thackmann/MicroMetabolism", subdir="MicroMetabolism")
-	library(MicroMetabolism)
-
 ##Install TensorFlow
 	install.packages("tensorflow")
 	install.packages("remotes")
@@ -11,6 +6,11 @@
 	remotes::install_github("rstudio/keras")
 	library(tensorflow)
 	install_tensorflow()
+
+##Install and load MicroMetabolism
+	install.packages("devtools")
+	devtools::install_github(repo="thackmann/MicroMetabolism", subdir="MicroMetabolism")
+	library(MicroMetabolism)
 
 ##Predict metabolic traits with neural networks
 	#Load Data
