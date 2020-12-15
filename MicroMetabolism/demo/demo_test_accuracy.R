@@ -12,15 +12,6 @@
 	devtools::install_github(repo="thackmann/MicroMetabolism", subdir="MicroMetabolism")
 	library(MicroMetabolism)
 
-##Install TensorFlow
-	install.packages("tensorflow")
-	install.packages("remotes")
-	remotes::install_github("rstudio/reticulate")
-	remotes::install_github("rstudio/tensorflow")
-	remotes::install_github("rstudio/keras")
-	library(tensorflow)
-	install_tensorflow()
-
 ##Predict metabolic traits with neural networks
 	#Load Data
 	data_fp = system.file("extdata", "test_accuracy.csv", package="MicroMetabolism")
