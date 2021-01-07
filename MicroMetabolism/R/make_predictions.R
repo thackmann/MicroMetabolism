@@ -108,11 +108,11 @@ pad_text = function(text_seqs, maxlen=3000){
 #' @export
 set_model = function(maxlen=3000, max_vocab=3000, embedding_dim=50, filters=64, kernel_size=3, hidden_dim=50){
   model = keras_model_sequential() %>%
-    layer_embedding(input_dim=max_vocab, output_dim = embedding_dims, input_length = maxlen) %>%
+    layer_embedding(input_dim=max_vocab, output_dim = embedding_dim, input_length = maxlen) %>%
     layer_dropout(0.2) %>%
     layer_conv_1d(filters=filters, kernel_size=kernel_size, padding = "valid", activation = "relu", strides = 1) %>%
     layer_global_max_pooling_1d() %>%
-    layer_dense(units=hidden_dims) %>%
+    layer_dense(units=hidden_dim) %>%
     layer_dropout(0.2) %>%
     layer_activation("relu") %>%
     layer_dense(1) %>%
@@ -141,7 +141,7 @@ set_model = function(maxlen=3000, max_vocab=3000, embedding_dim=50, filters=64, 
 set_model_RNN = function(maxlen=20000, max_vocab=3000, embedding_dim=128, lstm_units=64){
   model <- keras_model_sequential()
   model %>%
-    layer_embedding(input_dim = max_vocab, output_dim = embedding_dims) %>%
+    layer_embedding(input_dim = max_vocab, output_dim = embedding_dim) %>%
     layer_lstm(units = lstm_units, dropout = 0.2, recurrent_dropout = 0.2) %>%
     layer_dense(units = 1, activation = 'sigmoid')
   model %>% compile(
