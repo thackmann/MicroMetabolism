@@ -42,11 +42,11 @@
 	text_seqs_padded = pad_text(text_seqs, maxlen)
 
 	#Set Model Architecture
-	embedding_dims = 50
+	embedding_dim = 50
 	filters = 64
 	kernel_size = 3
-	hidden_dims = 50
-	model = set_model(maxlen, max_vocab, embedding_dim, filters, kernel_size, hidden_dims)
+	hidden_dim = 50
+	model = set_model(maxlen, max_vocab, embedding_dim, filters, kernel_size, hidden_dim)
 
 	#Set Data
 	train_fraction = 1
