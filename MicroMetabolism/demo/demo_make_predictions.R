@@ -46,7 +46,7 @@
 	filters = 64
 	kernel_size = 3
 	hidden_dims = 50
-	model = set_model(maxlen, max_vocab, embedding_dim, filters, kernel_size, hidden_dim)
+	model = set_model(maxlen, max_vocab, embedding_dim, filters, kernel_size, hidden_dims)
 
 	#Set Data
 	train_fraction = 1
