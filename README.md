@@ -10,6 +10,9 @@ Users can verify installation with test data.  Test data provided are descriptio
 
 Bergey's Manual is accessible only with a license. Users should follow all applicable copyright laws.
 
+## Online demo (beta)
+Go <a href="https://timothy-hackmann.shinyapps.io/MicroMetabolism/">here</a> for an online demo of this tool.
+
 ## Installation 
 ### Experienced R users
 In R, run 
