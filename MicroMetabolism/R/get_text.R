@@ -163,6 +163,9 @@ get_taxonomy = function(directory_fp, url_list, destfile_names_Bergey, html_list
 			progress(value=i, max.value=length(url_list))
 	}
 	
+  #Clean up formatting
+  taxonomy[[5]]=gsub(pattern="\r\n[ ]*", replacement="", x=taxonomy[[5]]) #Remove line breaks and spaces after genus name
+
   return(taxonomy)
 }
 
