@@ -29,7 +29,7 @@ get_url_names = function(){
 			#Extract out url names for articles for each article
 			for(j in 1:n_pages)
 			{
-				url_name = paste("https://onlinelibrary.wiley.com/browse/book/10.1002/9781118960608/title?startPage=", j,"&alphabetRange=", letters[i], "&pageSize=20", sep="")
+				url_name = paste("https://onlinelibrary.wiley.com/browse/book/10.1002/9781118960608/title?startPage=", j-1,"&alphabetRange=", letters[i], "&pageSize=20", sep="")
 				html_list = read_html(url_name)
 				url_xml=html_nodes(html_list, ".rlist--inline.separator li:nth-child(2) a")
 				url_text=html_attr(url_xml, "href")
